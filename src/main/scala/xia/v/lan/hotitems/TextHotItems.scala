@@ -9,7 +9,7 @@ import org.apache.flink.api.java.typeutils.{PojoTypeInfo, TypeExtractor}
 import org.apache.flink.core.fs.Path
 import org.apache.flink.streaming.api.functions.timestamps.AscendingTimestampExtractor
 import org.apache.flink.streaming.api.{TimeCharacteristic, scala}
-import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
+import org.apache.flink.streaming.api.scala._
 import org.apache.flink.streaming.api.scala.function.WindowFunction
 import org.apache.flink.streaming.api.windowing.time.Time
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow
@@ -49,6 +49,7 @@ object TextHotItems {
     val stringType = TypeExtractor.createTypeInfo(classOf[String])
     val itemType = TypeExtractor.createTypeInfo(classOf[ItemViewCount])
     val pvData = timedData.filter(u => "pv".equalsIgnoreCase(u.behavior))
+    val test1: KeyedStream[UserBehavior, Tuple] = pvData.keyBy("itemId")
     val windowedData = pvData.keyBy("itemId")
       .timeWindow(Time.minutes(60),Time.minutes(5))
       .aggregate(new CountAgg(),new WindowFunction[Long, ItemViewCount, Tuple, TimeWindow]{

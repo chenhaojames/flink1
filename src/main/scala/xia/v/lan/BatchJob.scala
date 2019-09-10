@@ -40,7 +40,7 @@ object BatchJob {
         .filter(_.nonEmpty).map(word => (word,1)).groupBy(0).sum(1)
 //    text.collect()
     text.print()
-    text.setParallelism(1).writeAsText("file:///D:/wd")
+//    text.setParallelism(1).writeAsText("file:///D:/wd")
 
     /*
      * Here, you can start creating your execution plan for Flink.
