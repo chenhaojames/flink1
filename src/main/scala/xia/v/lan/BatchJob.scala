@@ -19,6 +19,7 @@
 package xia.v.lan
 
 import org.apache.flink.api.scala._
+import org.apache.flink.core.fs.FileSystem.WriteMode
 
 /**
  * Skeleton for a Flink Batch Job.
@@ -39,8 +40,9 @@ object BatchJob {
     val text = env.readTextFile("D:/temp/flink/全新安装.txt").flatMap(_.split(" "))
         .filter(_.nonEmpty).map(word => (word,1)).groupBy(0).sum(1)
 //    text.collect()
-//    text.print()
-    text.setParallelism(1).writeAsText("file:///D:/wd")
+    text.print()
+//    text.setParallelism(1).writeAsText("file:///D:/wd",WriteMode.OVERWRITE)
+//    env.execute("Flink Batch Scala API Skeleton")
 
     /*
      * Here, you can start creating your execution plan for Flink.
@@ -67,6 +69,6 @@ object BatchJob {
      */
 
     // execute program
-    env.execute("Flink Batch Scala API Skeleton")
+
   }
 }

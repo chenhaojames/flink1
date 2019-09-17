@@ -66,12 +66,6 @@ object HotItems {
     env.execute("Flink Streaming Scala API Skeleton")
   }
 
-  class AssignerWithPeriodicWatermarksDemo extends AssignerWithPeriodicWatermarks[Long,Int]{
-    override def getCurrentWatermark: Watermark = ???
-
-    override def extractTimestamp(t: Long, l: Long): Long = ???
-  }
-
 }
 
 
