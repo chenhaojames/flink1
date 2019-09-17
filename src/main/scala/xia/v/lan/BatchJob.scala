@@ -36,11 +36,11 @@ object BatchJob {
     // set up the batch execution environment
     val env = ExecutionEnvironment.getExecutionEnvironment
 
-    val text = env.readTextFile("D:/全新安装.txt").flatMap(_.split(" "))
+    val text = env.readTextFile("D:/temp/flink/全新安装.txt").flatMap(_.split(" "))
         .filter(_.nonEmpty).map(word => (word,1)).groupBy(0).sum(1)
 //    text.collect()
-    text.print()
-//    text.setParallelism(1).writeAsText("file:///D:/wd")
+//    text.print()
+    text.setParallelism(1).writeAsText("file:///D:/wd")
 
     /*
      * Here, you can start creating your execution plan for Flink.

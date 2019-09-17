@@ -13,6 +13,7 @@ import org.apache.flink.api.java.typeutils.TypeExtractor
 import org.apache.flink.core.fs.Path
 import org.apache.flink.streaming.api.{TimeCharacteristic, scala}
 import org.apache.flink.streaming.api.datastream.DataStream
+import org.apache.flink.streaming.api.functions.AssignerWithPeriodicWatermarks
 import org.apache.flink.streaming.api.functions.source.InputFormatSourceFunction
 import org.apache.flink.streaming.api.functions.timestamps.AscendingTimestampExtractor
 import org.apache.flink.streaming.api.scala.function.WindowFunction
@@ -64,4 +65,13 @@ object HotItems {
     topItems.print()
     env.execute("Flink Streaming Scala API Skeleton")
   }
+
+  class AssignerWithPeriodicWatermarksDemo extends AssignerWithPeriodicWatermarks[Long,Int]{
+    override def getCurrentWatermark: Watermark = ???
+
+    override def extractTimestamp(t: Long, l: Long): Long = ???
+  }
+
 }
+
+
