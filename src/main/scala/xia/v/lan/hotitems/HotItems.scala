@@ -15,7 +15,7 @@ import org.apache.flink.streaming.api.{TimeCharacteristic, scala}
 import org.apache.flink.streaming.api.datastream.DataStream
 import org.apache.flink.streaming.api.functions.AssignerWithPeriodicWatermarks
 import org.apache.flink.streaming.api.functions.source.InputFormatSourceFunction
-import org.apache.flink.streaming.api.functions.timestamps.AscendingTimestampExtractor
+import org.apache.flink.streaming.api.functions.timestamps.{AscendingTimestampExtractor, BoundedOutOfOrdernessTimestampExtractor}
 import org.apache.flink.streaming.api.scala.function.WindowFunction
 import org.apache.flink.streaming.api.watermark.Watermark
 import org.apache.flink.streaming.api.windowing.time.Time
@@ -45,6 +45,10 @@ object HotItems {
     val timedData = datasource.assignTimestampsAndWatermarks(new AscendingTimestampExtractor[UserBehavior]() {
       override def extractAscendingTimestamp(element: UserBehavior): Long = element.timestamp.*(1000)
     })
+    /*datasource.assignAscendingTimestamps(_.timestamp * 1000)
+    datasource.assignTimestampsAndWatermarks(new BoundedOutOfOrdernessTimestampExtractor[UserBehavior](Time.seconds(10)) {
+      override def extractTimestamp(t: UserBehavior): Long = t.timestamp * 1000
+    })*/
     val longType: TypeInformation[Long] = TypeExtractor.createTypeInfo(classOf[Long])
     val stringType = TypeExtractor.createTypeInfo(classOf[String])
     val itemType = TypeExtractor.createTypeInfo(classOf[ItemViewCount])

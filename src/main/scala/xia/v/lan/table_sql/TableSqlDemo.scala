@@ -1,7 +1,7 @@
 package xia.v.lan.table_sql
 
 import org.apache.flink.streaming.api.scala._
-import org.apache.flink.table.api.EnvironmentSettings
+import org.apache.flink.table.api.{EnvironmentSettings, Table}
 import org.apache.flink.table.api.scala.StreamTableEnvironment
 import org.apache.flink.table.sources.CsvTableSource
 
@@ -19,8 +19,8 @@ object TableSqlDemo {
 
     val text = fsEnv.socketTextStream("localhost", 9000, '\n')
     val wordAndCount: DataStream[(String, Int)] = text.flatMap(_.split("\\s")).map((_,1))
-    val t2 = fsTabEnv.fromDataStream(wordAndCount)
-    fsTabEnv.sqlQuery(
+    val t2: Table = fsTabEnv.fromDataStream(wordAndCount)
+    val t3: Table = fsTabEnv.sqlQuery(
       """
         |select * from t1
       """.stripMargin)
