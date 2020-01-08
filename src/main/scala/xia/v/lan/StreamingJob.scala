@@ -37,7 +37,6 @@ object StreamingJob {
   def main(args: Array[String]) {
     // set up the streaming execution environment
     val env = StreamExecutionEnvironment.getExecutionEnvironment
-
     val text = env.socketTextStream("localhost", 9000, '\n')
 
     val wordcounts = text.flatMap(_.split("\\s")).map(w => (w,1)).keyBy(0)
