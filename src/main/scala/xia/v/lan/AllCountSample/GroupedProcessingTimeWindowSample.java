@@ -1,4 +1,4 @@
-package xia.v.lan;
+package xia.v.lan.AllCountSample;
 
 import org.apache.flink.api.common.JobExecutionResult;
 import org.apache.flink.api.common.functions.FoldFunction;
