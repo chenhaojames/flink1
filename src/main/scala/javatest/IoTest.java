@@ -12,12 +12,8 @@ import java.net.URLConnection;
  */
 public class IoTest {
     public static void main(String[] args) throws IOException {
-        URL url = new URL("http://192.168.120.17:9003/?/scenevehicles/dn@node17/10/96-23c35a64-19c31");
-        URLConnection urlConnection = url.openConnection();
-        urlConnection.connect();
-        InputStream inputStream = urlConnection.getInputStream();
-        byte[] bytes = new byte[urlConnection.getContentLength()];
-        inputStream.read(bytes,0,urlConnection.getContentLength());
-        System.out.println(bytes.length);
+        Integer i1 = 128;
+        Integer i2 = 128;
+        System.out.println(i1 == i2);
     }
 }
